@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$BIN_DIR"/dev-env/runner && run
+
+grep -lr "env bash" . | xargs shellcheck --rcfile="$BIN_DIR"/../.shellcheckrc

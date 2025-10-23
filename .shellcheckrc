@@ -1,0 +1,3 @@
+external-sources=false
+shell=bash
+disable=SC1091 # disables the "Not Following" error

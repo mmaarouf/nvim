@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+CURRENT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$CURRENT_DIR"/runner
+
+IMAGE_NAME=mmaarouf/$DEV_CONTAINER:latest
+
+echo "Building dev env image"
+docker_compose build "$DEV_CONTAINER"
+
+read -rp "Push image $IMAGE_NAME? [y/n]" ANSWER
+case $ANSWER in
+    [Yy]* ) docker push "$IMAGE_NAME";;
+    [Nn]* ) echo "Image not pushed.";;
+esac

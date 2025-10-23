@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -eu
+
+PROJECT_NAME="nvim"
+DEV_CONTAINER="$PROJECT_NAME-dev-env"
+
+if [ -z $PROJECT_NAME ]; then
+    red=$'\033[0;31m'
+    no_colour=$'\033[0m'
+    printf "%sError: %s\$PROJECT_NAME in ./bin/dev-env/runner is not set.\n" "$red" "$no_colour"
+    exit 1
+fi
+
+get_project_dir() {
+    local -r home_dir="$(dirname "${BASH_SOURCE[0]}")/../../"
+    readlink -m "$home_dir"
+}
+
+docker_compose() {
+    local -r project_dir=$(get_project_dir)
+    local -r docker_compose_file="$(dirname "${BASH_SOURCE[0]}")/docker-compose.yml"
+
+    # Note: declaring project name via -p is required to be able to exec into the containers
+    PROJECT_DIR=$project_dir docker-compose \
+        -f "$docker_compose_file" \
+        -p $PROJECT_NAME "$@"
+}
+
+is_running_in_docker() {
+    if [[ -f /.dockerenv ]]; then
+        echo true
+    else
+        echo false
+    fi
+}
+
+get_running_container() {
+    docker ps --format '{{.Names}}' | grep -s "^$DEV_CONTAINER$" | head -n 1
+}
+
+run() {
+    local -r calling_script=$(realpath "$0")
+    if [[ $(is_running_in_docker) == true ]]; then
+        return 0
+    fi
+
+    local -r running_container="$(get_running_container)"
+
+    if [[ -n $running_container ]]; then
+        echo 'Running in existing container'
+        docker_compose exec $DEV_CONTAINER bash -l "$calling_script" "$@"
+        exit $?
+    else
+        echo 'Running in new container'
+        docker_compose run --rm --service-ports $DEV_CONTAINER "$calling_script" "$@"
+        exit $?
+    fi
+}

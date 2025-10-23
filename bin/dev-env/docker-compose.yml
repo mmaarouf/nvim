@@ -1,0 +1,12 @@
+version: '3.2'
+services:
+  nvim-dev-env:
+    image: 'mmaarouf/nvim-dev-env:latest'
+    container_name: 'nvim-dev-env'
+    build:
+        context: .
+    stdin_open: true
+    tty: true
+    volumes:
+        - ${PROJECT_DIR}:${PROJECT_DIR}
+    working_dir: ${PROJECT_DIR}
