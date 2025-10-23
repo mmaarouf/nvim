@@ -11,3 +11,8 @@ Required tools:
 * Docker
 * Docker Compose
 * An editorconfig compliant editor
+
+## Colour scheme
+
+Used [pintovim](https://pintovim.dev/) to create a colour scheme to my liking, then migrated it to [color-scheme.lua](/nvim-config/lua/color-scheme.lua).
+To further alter the colours, you can import [color-scheme-pinto.json](/color-scheme-pinto.json) into [pintovim](https://pintovim.dev/) and edit it further.
