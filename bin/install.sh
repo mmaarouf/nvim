@@ -3,18 +3,23 @@ set -eu
 
 XDG_CONFIG_HOME=$HOME/.config/
 XDG_DATA_HOME=$HOME/.local/share/
-NVIM_DIR=`dirname $0`
+NVIM_DIR="$(realpath "$(dirname "$0")"/..)"
+
+print_colour() {
+    local colour="$1"
+    local text="$2"
+    local no_colour=$'\033[0m'
+    printf "%s%s%s\n" "$colour" "$text" "$no_colour"
+}
 
 print_heading() {
-    GREEN='\033[0;32m'
-    NC='\033[0m'
-    printf "${GREEN}$1${NC}\n"
+    local green=$'\033[0;32m'
+    print_colour "$green" "$1"
 }
 
 print_error() {
-    GREEN='\033[0;31m'
-    NC='\033[0m'
-    printf "${GREEN}$1${NC}\n"
+    local red=$'\033[0;31m'
+    print_colour "$red" "$1"
 }
 
 
@@ -23,17 +28,17 @@ install_package () {
     local os
     os=$(uname -s)
 
-    if [[ "${os} == "Linux"" ]];
+    if [[ "${os}" == "Linux" ]];
     then
         local alpine_text
-        alpine_text=$(cat /etc/os-release | grep Alpine | wc -l)
+        alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
         if [[ "${alpine_text}" != "0" ]];
         then
             install_cmd="apk add"
         else
             install_cmd="apt update && apt install -y"
         fi
-    elif [[ "${os} == "Darwin"" ]];
+    elif [[ "${os}" == "Darwin" ]];
     then
         install_cmd="yes | brew install"
     else
@@ -41,7 +46,7 @@ install_package () {
         exit 1
     fi
 
-    echo "${install_cmd} ${@}" | bash
+    echo "${install_cmd} $*" | bash
 }
 
 install_prerequisites() {
@@ -62,8 +67,8 @@ install_nvim() {
 
 install_config() {
     print_heading "** Copying over nvim configuration **"
-    mkdir -p $XDG_CONFIG_HOME/nvim
-    cp -rp $NVIM_DIR/nvim-config/* $XDG_CONFIG_HOME/nvim/
+    mkdir -p "$XDG_CONFIG_HOME/nvim"
+    cp -rp "$NVIM_DIR"/nvim-config/* "$XDG_CONFIG_HOME"/nvim/
 }
 
 init_nvim() {
