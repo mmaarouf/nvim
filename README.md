@@ -1,8 +1,10 @@
 # nvim
 
+Repo containing neovim config and installation scripts.
+
 ## Development
 
-### Tools
+Required tools:
 
 * Linux-like environment
 * bash
