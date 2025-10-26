@@ -38,6 +38,12 @@ get_running_container() {
     docker ps --format '{{.Names}}' | grep -s "^$DEV_CONTAINER$" | head -n 1
 }
 
+get_user() {
+    local -r user=$(id -u)
+    local -r group=$(id -g)
+    echo "$user:$group"
+}
+
 run() {
     local -r calling_script=$(realpath "$0")
     if [[ $(is_running_in_docker) == true ]]; then
@@ -45,14 +51,15 @@ run() {
     fi
 
     local -r running_container="$(get_running_container)"
+    local -r user="$(get_user)"
 
     if [[ -n $running_container ]]; then
         echo 'Running in existing container'
-        docker_compose exec $DEV_CONTAINER bash -l "$calling_script" "$@"
+        docker_compose exec --user="$user" $DEV_CONTAINER bash -l "$calling_script" "$@"
         exit $?
     else
         echo 'Running in new container'
-        docker_compose run --rm --service-ports $DEV_CONTAINER "$calling_script" "$@"
+        docker_compose run --user="$user" --rm --service-ports $DEV_CONTAINER "$calling_script" "$@"
         exit $?
     fi
 }
