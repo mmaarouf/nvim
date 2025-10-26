@@ -45,7 +45,6 @@ run() {
     fi
 
     local -r running_container="$(get_running_container)"
-    local -r user="$(get_user)"
 
     if [[ -n $running_container ]]; then
         echo 'Running in existing container'
