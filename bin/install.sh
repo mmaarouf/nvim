@@ -22,22 +22,25 @@ print_error() {
     print_colour "$red" "$1"
 }
 
+get_linux_install_cmd() {
+    local alpine_text
+    alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
+    if [[ "${alpine_text}" != "0" ]];
+    then
+        echo "apk add"
+    else
+        echo "apt update && apt install -y"
+    fi
+}
 
-install_package () {
+install_package() {
     local install_cmd
     local os
     os=$(uname -s)
 
     if [[ "${os}" == "Linux" ]];
     then
-        local alpine_text
-        alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
-        if [[ "${alpine_text}" != "0" ]];
-        then
-            install_cmd="apk add"
-        else
-            install_cmd="apt update && apt install -y"
-        fi
+        install_cmd="$(get_linux_install_cmd)"
     elif [[ "${os}" == "Darwin" ]];
     then
         install_cmd="yes | brew install"
