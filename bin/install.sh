@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -eu
 
-XDG_CONFIG_HOME=$HOME/.config/
-XDG_DATA_HOME=$HOME/.local/share/
-NVIM_DIR="$(realpath "$(dirname "$0")"/..)"
+XDG_CONFIG_HOME="$HOME/.config/"
+XDG_DATA_HOME="$HOME/.local/share/"
+PROJECT_DIR="$(realpath "$(dirname "$0")"/..)"
+NVIM_CONFIG_DIR="$XDG_CONFIG_HOME/nvim"
+NVIM_DATA_DIR="$XDG_DATA_HOME/nvim"
 
 print_colour() {
     local colour="$1"
@@ -22,34 +24,36 @@ print_error() {
     print_colour "$red" "$1"
 }
 
-get_linux_install_cmd() {
-    local alpine_text
-    alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
-    if [[ "${alpine_text}" != "0" ]];
+uninstall_package() {
+    if [[ $(which apt) ]];
     then
-        echo "apk add"
+        apt remove -y "$@"
+    elif [[ $(which apk) ]];
+    then
+        apk del "$@"
+    elif [[ $(which brew) ]];
+    then
+        brew uninstall "$@"
     else
-        echo "apt update && apt install -y"
+        echo "Could not find a supported package manager"
+        exit 1
     fi
 }
 
 install_package() {
-    local install_cmd
-    local os
-    os=$(uname -s)
-
-    if [[ "${os}" == "Linux" ]];
+    if [[ $(which apt) ]];
     then
-        install_cmd="$(get_linux_install_cmd)"
-    elif [[ "${os}" == "Darwin" ]];
+        apt update && apt install -y "$@"
+    elif [[ $(which apk) ]];
     then
-        install_cmd="yes | brew install"
+        apk add "$@"
+    elif [[ $(which brew) ]];
+    then
+        brew install "$@"
     else
-        print_error "Unknown OS ${os}"
+        echo "Could not find a supported package manager"
         exit 1
     fi
-
-    echo "${install_cmd} $*" | bash
 }
 
 install_prerequisites() {
@@ -59,7 +63,7 @@ install_prerequisites() {
 
 install_plugin_manager() {
     print_heading "** Downloading plugin manager **"
-    curl -fLo "${XDG_DATA_HOME}"/nvim/site/autoload/plug.vim \
+    curl -fLo "${NVIM_DATA_DIR}"/site/autoload/plug.vim \
         --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
@@ -68,17 +72,34 @@ install_nvim() {
     install_package neovim
 }
 
+remove_existing_installation() {
+    rm -rf "$NVIM_CONFIG_DIR" "$NVIM_DATA_DIR"
+    uninstall_package neovim
+}
+
 install_config() {
     print_heading "** Copying over nvim configuration **"
-    mkdir -p "$XDG_CONFIG_HOME/nvim"
-    cp -rp "$NVIM_DIR"/nvim-config/* "$XDG_CONFIG_HOME"/nvim/
+    mkdir -p "$NVIM_CONFIG_DIR"
+    cp -rp "$PROJECT_DIR"/nvim-config/* "$XDG_CONFIG_HOME"/nvim/
 }
 
 init_nvim() {
     nvim --headless +'PlugInstall' +qa
 }
 
+get_linux_install_cmd() {
+    local alpine_text
+    alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
+    if [[ "${alpine_text}" != "0" ]];
+    then
+        echo "apk del"
+    else
+        echo "apt update && apt remove -y"
+    fi
+}
+
 main () {
+    remove_existing_installation
     install_prerequisites
     install_nvim
     install_config
