@@ -74,7 +74,10 @@ install_nvim() {
 
 remove_existing_installation() {
     rm -rf "$NVIM_CONFIG_DIR" "$NVIM_DATA_DIR"
-    uninstall_package neovim
+    if [[ $(which nvim) ]];
+    then
+        uninstall_package neovim
+    fi
 }
 
 install_config() {
