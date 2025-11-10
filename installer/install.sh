@@ -3,9 +3,9 @@ set -eu
 
 XDG_CONFIG_HOME="$HOME/.config/"
 XDG_DATA_HOME="$HOME/.local/share/"
-PROJECT_DIR="$(realpath "$(dirname "$0")"/..)"
 NVIM_CONFIG_DIR="$XDG_CONFIG_HOME/nvim"
 NVIM_DATA_DIR="$XDG_DATA_HOME/nvim"
+PROJECT_DIR="$(realpath "$(dirname "$0")"/..)"
 
 print_colour() {
     local colour="$1"
