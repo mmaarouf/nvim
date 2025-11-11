@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$BIN_DIR"/dev-env/runner && run "$@"
+
+"$BIN_DIR"/build
+TAG="v$VERSION.0.0"
+
+gh release \
+    --repo mmaarouf/nvim \
+    create "$TAG" out/nvim.tar.gz \
+    -t "nvim $TAG" \
+    -n ""
