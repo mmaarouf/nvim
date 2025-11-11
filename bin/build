@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$BIN_DIR"/dev-env/runner && run "$@"
+
+REPO_DIR=$(realpath "$BIN_DIR"/..)
+
+mkdir -p "$REPO_DIR"/out/
+
+tar czf "$REPO_DIR"/out/nvim.tar.gz -C "$REPO_DIR" nvim-config installer/install.sh
