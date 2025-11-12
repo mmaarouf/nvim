@@ -7,7 +7,6 @@ jobs:
       - checkout
       - run: ./bin/lint
   publish:
-    type: release
     machine: true
     steps:
       - checkout
