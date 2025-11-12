@@ -1,10 +1,8 @@
-version: 2
-jobs:
+version: 2.1
 
+jobs:
   build:
     machine: true
-
     steps:
       - checkout
-
-      - run: env
+      - run: ./bin/lint
