@@ -6,8 +6,22 @@ jobs:
     steps:
       - checkout
       - run: ./bin/lint
+  publish:
+    machine: true
+    type: release
+    environment:
+      VERSION: $CIRCLE_BUILD_NUM
+    steps:
+      - checkout
+      - run: ./bin/publish
 
 workflows:
   check-build-and-deploy:
     jobs:
       - lint
+      - publish
+        requires:
+          - lint
+        filters:
+          branches:
+            only: main
