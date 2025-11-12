@@ -12,3 +12,4 @@ services:
     working_dir: ${PROJECT_DIR}
     environment:
         - GH_TOKEN
+        - VERSION
