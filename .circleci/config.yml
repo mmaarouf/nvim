@@ -8,12 +8,12 @@ jobs:
       - run: ./bin/lint
   publish:
     machine: true
-    environment:
-      # VERSION: $CIRCLE_BUILD_NUM
-      VERSION: test
     steps:
       - checkout
-      - run: ./bin/publish
+      - run:
+          command: ./bin/publish
+          environment:
+            VERSION: $CIRCLE_BUILD_NUM
 
 workflows:
   check-build-and-deploy:
