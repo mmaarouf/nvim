@@ -1,8 +1,13 @@
 version: 2.1
 
 jobs:
-  build:
+  lint:
     machine: true
     steps:
       - checkout
       - run: ./bin/lint
+
+workflows:
+  check-build-and-deploy:
+    jobs:
+      - lint
