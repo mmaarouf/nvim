@@ -11,9 +11,9 @@ jobs:
     steps:
       - checkout
       - run:
-          command: ./bin/publish
-          environment:
-            VERSION: test
+          command: VERSION=$CIRCLE_BUILD_NUM ./bin/publish
+          # environment:
+          #   VERSION: test
 
 workflows:
   check-build-and-deploy:
