@@ -13,7 +13,7 @@ jobs:
       - run:
           command: ./bin/publish
           environment:
-            VERSION: $CIRCLE_BUILD_NUM
+            VERSION: test
 
 workflows:
   check-build-and-deploy:
