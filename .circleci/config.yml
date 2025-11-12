@@ -9,7 +9,8 @@ jobs:
   publish:
     machine: true
     environment:
-      VERSION: $CIRCLE_BUILD_NUM
+      # VERSION: $CIRCLE_BUILD_NUM
+      VERSION: test
     steps:
       - checkout
       - run: ./bin/publish
