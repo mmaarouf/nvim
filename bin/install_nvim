@@ -3,4 +3,4 @@ BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "$BIN_DIR"/dev-env/runner && run
 
 # install script does not have execute permissions, so sourcing here instead
-source "$BIN_DIR"/../src/install.sh
+source "$BIN_DIR"/../installer/install.sh
