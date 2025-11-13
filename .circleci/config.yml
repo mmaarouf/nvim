@@ -11,14 +11,35 @@ jobs:
     steps:
       - checkout
       - run: VERSION=$CIRCLE_BUILD_NUM ./bin/publish
+  test-nvim-install-via-apk:
+    machine: true
+    steps:
+      - checkout
+      - run: ./bin/test-nvim-install-via-apk
+  test-nvim-install-via-brew:
+    machine: true
+    steps:
+      - checkout
+      - run: ./bin/test-nvim-install-via-brew
+  test-nvim-install-via-apt:
+    machine: true
+    steps:
+      - checkout
+      - run: ./bin/test-nvim-install-via-brew
 
 workflows:
   check-build-and-deploy:
     jobs:
       - lint
+      - test-nvim-install-via-apk
+      - test-nvim-install-via-brew
+      - test-nvim-install-via-apt
       - publish:
           requires:
             - lint
+            - test-nvim-install-via-apk
+            - test-nvim-install-via-brew
+            - test-nvim-install-via-apt
           filters:
             branches:
               only: main
