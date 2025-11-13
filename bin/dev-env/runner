@@ -35,7 +35,8 @@ is_running_in_docker() {
 }
 
 get_running_container() {
-    docker ps --format '{{.Names}}' | grep -s "^$DEV_CONTAINER$" | head -n 1
+    local -r container="$1"
+    docker ps --format '{{.Names}}' | grep -s "^$container$" | head -n 1
 }
 
 run() {
@@ -44,15 +45,16 @@ run() {
         return 0
     fi
 
-    local -r running_container="$(get_running_container)"
+    local -r container=${CONTAINER:-"$DEV_CONTAINER"}
+    local -r running_container="$(get_running_container "$container")"
 
     if [[ -n $running_container ]]; then
-        echo 'Running in existing container'
-        docker_compose exec $DEV_CONTAINER bash -l "$calling_script" "$@"
+        echo "Running in existing $container container"
+        docker_compose exec "$container" bash -l "$calling_script" "$@"
         exit $?
     else
-        echo 'Running in new container'
-        docker_compose run --rm --service-ports $DEV_CONTAINER "$calling_script" "$@"
+        echo "Running in new $container container"
+        docker_compose run --rm --service-ports "$container" "$calling_script" "$@"
         exit $?
     fi
 }
