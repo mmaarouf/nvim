@@ -15,17 +15,17 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: ./bin/test-nvim-install-via-apk
+      - run: ./bin/test-apk-install
   test-nvim-install-via-brew:
     machine: true
     steps:
       - checkout
-      - run: ./bin/test-nvim-install-via-brew
+      - run: ./bin/test-brew-install
   test-nvim-install-via-apt:
     machine: true
     steps:
       - checkout
-      - run: ./bin/test-nvim-install-via-brew
+      - run: ./bin/test-apt-install
 
 workflows:
   check-build-and-deploy:
