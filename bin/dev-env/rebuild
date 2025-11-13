@@ -4,3 +4,9 @@ source "$CURRENT_DIR"/runner
 
 echo "Building dev env image"
 docker_compose build "$DEV_CONTAINER"
+
+echo "Buildling brew env image"
+docker_compose build "nvim-brew-env"
+
+echo "Buildling apt env image"
+docker_compose build "nvim-apt-env"

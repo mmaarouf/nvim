@@ -1,0 +1,7 @@
+FROM homebrew/brew:latest
+
+USER 0
+RUN brew install bash_unit
+RUN mv /usr/bin/apt /usr/bin/apt.hidden
+
+ENTRYPOINT ["bash", "-l"]

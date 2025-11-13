@@ -5,6 +5,7 @@ services:
     container_name: 'nvim-dev-env'
     build:
         context: .
+        dockerfile: Dockerfile
     stdin_open: true
     tty: true
     volumes:
@@ -13,3 +14,25 @@ services:
     environment:
         - GH_TOKEN
         - VERSION
+  nvim-brew-env:
+    image: 'mmaarouf/nvim-brew-env:latest'
+    container_name: 'nvim-brew-env'
+    build:
+        context: .
+        dockerfile: Dockerfile.brew
+    stdin_open: true
+    tty: true
+    volumes:
+        - ${PROJECT_DIR}:${PROJECT_DIR}
+    working_dir: ${PROJECT_DIR}
+  nvim-apt-env:
+    image: 'mmaarouf/nvim-apt-env:latest'
+    container_name: 'nvim-apt-env'
+    build:
+        context: .
+        dockerfile: Dockerfile.apt
+    stdin_open: true
+    tty: true
+    volumes:
+        - ${PROJECT_DIR}:${PROJECT_DIR}
+    working_dir: ${PROJECT_DIR}

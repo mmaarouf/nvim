@@ -2,13 +2,20 @@
 CURRENT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "$CURRENT_DIR"/runner
 
-IMAGE_NAME=mmaarouf/$DEV_CONTAINER:latest
+publish_container() {
+    local -r container="$1"
+    local -r image="mmaarouf/$container:latest"
 
-echo "Building dev env image"
-docker_compose build "$DEV_CONTAINER"
+    echo "Building container $container"
+    docker_compose build "$container"
 
-read -rp "Push image $IMAGE_NAME? [y/n]" ANSWER
-case $ANSWER in
-    [Yy]* ) docker push "$IMAGE_NAME";;
-    [Nn]* ) echo "Image not pushed.";;
-esac
+    read -rp "Push image $image? [y/n]" ANSWER
+    case $ANSWER in
+        [Yy]* ) docker push "$image";;
+        [Nn]* ) echo "Image not pushed.";;
+    esac
+}
+
+publish_container "$DEV_CONTAINER"
+publish_container "nvim-brew-env"
+publish_container "nvim-apt-env"
