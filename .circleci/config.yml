@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: ./bin/lint
-      - env
+      - run: env
   publish:
     machine: true
     steps:
