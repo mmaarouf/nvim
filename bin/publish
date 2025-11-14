@@ -2,11 +2,23 @@
 BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "$BIN_DIR"/dev-env/runner && run "$@"
 
-"$BIN_DIR"/build
-TAG="v$VERSION"
+create_release() {
+    local -r tag="$1"
+    gh release \
+        --repo mmaarouf/nvim \
+        create "$tag" out/nvim.tar.gz \
+        -t "nvim $tag" \
+        -n ""
+}
 
-gh release \
-    --repo mmaarouf/nvim \
-    create "$TAG" out/nvim.tar.gz \
-    -t "nvim $TAG" \
-    -n ""
+delete_release() {
+    local -r tag="$1"
+    gh release \
+        --repo mmaarouf/nvim \
+        delete "$tag" -y --cleanup-tag || true
+}
+
+"$BIN_DIR"/build
+create_release "v$VERSION"
+delete_release "latest"
+create_release "latest"
