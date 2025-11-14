@@ -90,17 +90,6 @@ init_nvim() {
     nvim --headless +'PlugInstall' +qa
 }
 
-get_linux_install_cmd() {
-    local alpine_text
-    alpine_text=$(grep -c "Alpine" /etc/os-release || echo "0")
-    if [[ "${alpine_text}" != "0" ]];
-    then
-        echo "apk del"
-    else
-        echo "apt update && apt remove -y"
-    fi
-}
-
 main () {
     remove_existing_installation
     install_prerequisites
