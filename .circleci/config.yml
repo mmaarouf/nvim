@@ -10,7 +10,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: VERSION=$CIRCLE_BUILD_NUM ./bin/publish
+      - run: VERSION=$CIRCLE_PIPELINE_ID ./bin/publish
   test-nvim-install-via-apk:
     machine: true
     steps:
