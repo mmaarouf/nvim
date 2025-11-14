@@ -1,4 +1,4 @@
-# nvim
+# nvim [![CircleCI](https://dl.circleci.com/status-badge/img/gh/mmaarouf/nvim/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/mmaarouf/nvim/tree/main)
 
 Repo containing neovim config and installation scripts.
 
