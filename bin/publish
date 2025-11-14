@@ -3,7 +3,7 @@ BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "$BIN_DIR"/dev-env/runner && run "$@"
 
 "$BIN_DIR"/build
-TAG="v0.$VERSION.0"
+TAG="v$VERSION"
 
 gh release \
     --repo mmaarouf/nvim \
