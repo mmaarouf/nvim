@@ -53,7 +53,7 @@ uninstall_package() {
 install_package() {
     if [[ $(which apt) ]];
     then
-        maybe_sudo apt update && apt install -y "$@"
+        maybe_sudo apt update && maybe_sudo apt install -y "$@"
     elif [[ $(which apk) ]];
     then
         maybe_sudo apk add "$@"
