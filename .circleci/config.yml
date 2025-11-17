@@ -26,6 +26,11 @@ jobs:
     steps:
       - checkout
       - run: ./bin/test-apt-install
+  test-e2e-installation:
+    machine: true
+    steps:
+      - checkout
+      - run: ./bin/test-e2e-installation
 
 workflows:
   check-build-and-deploy:
@@ -43,3 +48,6 @@ workflows:
           filters:
             branches:
               only: main
+      - test-e2e-installation:
+          requires:
+            - publish

@@ -2,5 +2,5 @@
 BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "$BIN_DIR"/dev-env/runner && run "$@"
 
-"$BIN_DIR"/install_nvim
+curl https://raw.githubusercontent.com/mmaarouf/nvim/refs/heads/main/install.sh | bash
 bash_unit "$BIN_DIR"/../test/test_vim_installation.sh

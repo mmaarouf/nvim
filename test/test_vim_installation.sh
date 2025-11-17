@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -eu
 
-setup_suite() {
-    local -r test_dir="$(dirname "${BASH_SOURCE[0]}")"
-    "$test_dir"/../bin/install_nvim
-}
-
 test_nvim_should_be_able_to_write_to_a_file() {
     # write string into a file using nvim
     nvim --headless +'exe ":normal i" . "hello"' +'w!/tmp/testfile' +qa &> /dev/null
