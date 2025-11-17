@@ -27,29 +27,39 @@ print_error() {
 uninstall_package() {
     if [[ $(which apt) ]];
     then
-        apt remove -y "$@"
+        maybe_sudo apt remove -y "$@"
     elif [[ $(which apk) ]];
     then
-        apk del "$@"
+        maybe_sudo apk del "$@"
     elif [[ $(which brew) ]];
     then
-        brew uninstall "$@"
+        maybe_sudo uninstall "$@"
     else
         echo "Could not find a supported package manager"
         exit 1
     fi
 }
 
+maybe_sudo() {
+    if [[ $(which sudo) ]];
+    then
+        sudo $@
+    else
+        # container images may not contain sudo
+        $@
+    fi
+}
+
 install_package() {
     if [[ $(which apt) ]];
     then
-        apt update && apt install -y "$@"
+        maybe_sudo apt update && apt install -y "$@"
     elif [[ $(which apk) ]];
     then
-        apk add "$@"
+        maybe_sudo apk add "$@"
     elif [[ $(which brew) ]];
     then
-        brew install "$@"
+        maybe_sudo brew install "$@"
     else
         echo "Could not find a supported package manager"
         exit 1

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -eu
 
-
 main() {
     local -r tmp_dir="$(mktemp -d)"
     pushd "$tmp_dir"
