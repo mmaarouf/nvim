@@ -19,7 +19,7 @@ delete_release() {
 }
 
 "$BIN_DIR"/build
-delete_release "latest"
-create_release "latest"
-# create a versioned release at the end to highlight it as the "latest" in gh
-create_release "v$VERSION"
+
+TAG="latest"
+delete_release $TAG
+create_release $TAG
