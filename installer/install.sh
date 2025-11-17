@@ -24,6 +24,16 @@ print_error() {
     print_colour "$red" "$1"
 }
 
+maybe_sudo() {
+    if [[ $(which sudo) ]];
+    then
+        sudo "$@"
+    else
+        # container images may not contain sudo
+        "$@"
+    fi
+}
+
 uninstall_package() {
     if [[ $(which apt) ]];
     then
@@ -37,16 +47,6 @@ uninstall_package() {
     else
         echo "Could not find a supported package manager"
         exit 1
-    fi
-}
-
-maybe_sudo() {
-    if [[ $(which sudo) ]];
-    then
-        sudo $@
-    else
-        # container images may not contain sudo
-        $@
     fi
 }
 
