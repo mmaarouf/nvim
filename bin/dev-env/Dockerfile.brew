@@ -4,6 +4,6 @@ USER 0
 RUN brew install bash_unit
 RUN mv /usr/bin/apt /usr/bin/apt.hidden
 # add brew to sudo's PATH
- RUN sed -i "s|secure_path=\"|secure_path=\"${PATH}:|" /etc/sudoers
+RUN sed -i "s|secure_path=\"|secure_path=\"${PATH}:|" /etc/sudoers
 
 ENTRYPOINT ["bash", "-l"]
