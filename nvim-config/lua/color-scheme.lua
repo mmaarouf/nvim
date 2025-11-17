@@ -103,6 +103,11 @@ function color_scheme.init()
     vim.api.nvim_set_hl(0, 'SpecialComment', { ctermfg=light_blue, ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'Debug', { ctermfg=light_blue, ctermbg=dark_grey })
 
+    -- Tab line colours
+    vim.api.nvim_set_hl(0, 'TabLine', { ctermfg=light_grey })
+    vim.api.nvim_set_hl(0, 'TabLineFill', { ctermbg=dark_grey })
+    vim.api.nvim_set_hl(0, 'TabLineSel', { ctermbg=light_grey })
+
     -- Autocomplete pop up menu colours
     vim.api.nvim_set_hl(0, 'Pmenu', { ctermbg=dark_grey, ctermfg=purple })
     vim.api.nvim_set_hl(0, 'PmenuSel', { ctermbg=purple, ctermfg=white })
