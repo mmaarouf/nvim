@@ -12,6 +12,8 @@ function color_scheme.init()
     local blue=45
     local purple=213
 
+    vim.o.termguicolors = false
+
     vim.api.nvim_set_hl(0, 'ColorColumn', { ctermfg=white, ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'Conceal', { ctermfg=yellow,  ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'Cursor', { ctermfg=white,  ctermbg=dark_grey })
