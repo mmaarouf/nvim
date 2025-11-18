@@ -12,8 +12,8 @@ if [ -z $PROJECT_NAME ]; then
 fi
 
 get_project_dir() {
-    local -r home_dir="$(dirname "${BASH_SOURCE[0]}")/../../"
-    readlink -m "$home_dir"
+    local -r project_dir="$(dirname "${BASH_SOURCE[0]}")/../"
+    readlink -m "$project_dir"
 }
 
 docker_compose() {

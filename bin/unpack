@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$BIN_DIR"/dev-env/runner && run "$@"
+REPO_DIR="$(dirname "${BASH_SOURCE[0]}")/.."
+source "$REPO_DIR"/dev-env/runner && run "$@"
 
-OUT_DIR=$(realpath "$BIN_DIR"/../out)
-TARGET_DIR="$OUT_DIR"/nvim
+OUT_DIR="$REPO_DIR/out"
+TARGET_DIR="$OUT_DIR/nvim"
 
 rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"

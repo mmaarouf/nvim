@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$BIN_DIR"/dev-env/runner && run "$@"
+REPO_DIR="$BIN_DIR/.."
+source "$REPO_DIR"/dev-env/runner && run "$@"
 
 gh auth login
 

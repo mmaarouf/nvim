@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-CURRENT_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$CURRENT_DIR"/runner
+DEV_ENV_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$DEV_ENV_DIR"/runner
 
 echo "Building dev env image"
 docker_compose build "$DEV_CONTAINER"

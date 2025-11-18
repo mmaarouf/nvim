@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$BIN_DIR"/dev-env/runner && run "$@"
+REPO_DIR="$BIN_DIR/.."
+source "$REPO_DIR"/dev-env/runner && run "$@"
 
 create_release() {
     local -r tag="$1"
     gh release \
         --repo mmaarouf/nvim \
-        create "$tag" out/nvim.tar.gz \
+        create "$tag" "$REPO_DIR"/out/nvim.tar.gz \
         -t "nvim $tag" \
         -n ""
 }

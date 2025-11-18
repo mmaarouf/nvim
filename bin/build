@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$BIN_DIR"/dev-env/runner && run "$@"
-
-REPO_DIR=$(realpath "$BIN_DIR"/..)
+REPO_DIR="$(dirname "${BASH_SOURCE[0]}")/.."
+source "$REPO_DIR"/dev-env/runner && run "$@"
 
 mkdir -p "$REPO_DIR"/out/
 
