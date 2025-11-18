@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 BIN_DIR="$(dirname "${BASH_SOURCE[0]}")"
-source "$BIN_DIR"/dev-env/runner && run CONTAINER="nvim-brew-env" "$@"
+source "$BIN_DIR"/dev-env/runner && CONTAINER="nvim-brew-env" run "$@"
 
 "$BIN_DIR"/install_nvim
 bash_unit "$BIN_DIR"/../test/test_vim_installation.sh

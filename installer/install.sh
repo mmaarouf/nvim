@@ -43,7 +43,7 @@ uninstall_package() {
         maybe_sudo apk del "$@"
     elif [[ $(which brew) ]];
     then
-        maybe_sudo uninstall "$@"
+        maybe_sudo brew uninstall "$@"
     else
         echo "Could not find a supported package manager"
         exit 1
