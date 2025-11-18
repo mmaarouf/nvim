@@ -43,7 +43,7 @@ uninstall_package() {
         maybe_sudo apk del "$@"
     elif [[ $(which brew) ]];
     then
-        maybe_sudo brew uninstall "$@"
+        brew uninstall "$@"
     else
         echo "Could not find a supported package manager"
         exit 1
@@ -59,7 +59,7 @@ install_package() {
         maybe_sudo apk add "$@"
     elif [[ $(which brew) ]];
     then
-        maybe_sudo brew install "$@"
+        brew install "$@"
     else
         echo "Could not find a supported package manager"
         exit 1
