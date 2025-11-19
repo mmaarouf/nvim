@@ -35,9 +35,9 @@ maybe_sudo() {
 }
 
 uninstall_package() {
-    if [[ $(which apt) ]];
+    if [[ $(which apt-get) ]];
     then
-        maybe_sudo apt remove -y "$@"
+        maybe_sudo apt-get remove -y "$@"
     elif [[ $(which apk) ]];
     then
         maybe_sudo apk del "$@"
@@ -51,9 +51,9 @@ uninstall_package() {
 }
 
 install_package() {
-    if [[ $(which apt) ]];
+    if [[ $(which apt-get) ]];
     then
-        maybe_sudo apt update && maybe_sudo apt install -y "$@"
+        maybe_sudo apt-get update && maybe_sudo apt-get install -y "$@"
     elif [[ $(which apk) ]];
     then
         maybe_sudo apk add "$@"
