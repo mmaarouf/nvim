@@ -21,7 +21,7 @@ docker_compose() {
     local -r docker_compose_file="$(dirname "${BASH_SOURCE[0]}")/docker-compose.yml"
 
     # Note: declaring project name via -p is required to be able to exec into the containers
-    PROJECT_DIR=$project_dir docker-compose \
+    PROJECT_DIR=$project_dir docker compose \
         -f "$docker_compose_file" \
         -p $PROJECT_NAME "$@"
 }
