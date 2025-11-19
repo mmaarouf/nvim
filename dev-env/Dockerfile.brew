@@ -1,7 +1,8 @@
 FROM homebrew/brew:latest
 
-USER 0
 RUN brew install bash_unit
+
+USER 0
 RUN mv /usr/bin/apt /usr/bin/apt.hidden
 
 ENTRYPOINT ["bash", "-l"]
