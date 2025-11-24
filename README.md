@@ -16,7 +16,6 @@ curl https://raw.githubusercontent.com/mmaarouf/nvim/refs/heads/main/install.sh 
 
 ### Required tools:
 
-* Linux-like environment
 * bash
 * Docker
 * Docker Compose
