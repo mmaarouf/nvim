@@ -7,7 +7,10 @@ function fzf_plugin.install(plug)
 end
 
 function fzf_plugin.init()
-    require('fzf-lua').setup { 'fzf-native' }
+    require('fzf-lua').setup { 'fzf-native',
+            backdrop = 100, -- prevents weird background colours when the popup is open
+        }
+    }
     vim.keymap.set('', '<c-t>', ':lua require("fzf-lua").files()<cr>')
 end
 
