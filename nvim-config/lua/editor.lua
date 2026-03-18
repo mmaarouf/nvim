@@ -15,6 +15,7 @@ end
 
 local function set_keymaps()
     vim.keymap.set('i', 'jj', '<Esc>')
+    vim.keymap.set('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
 end
 
 local function set_diagnostics()

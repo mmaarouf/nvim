@@ -1,7 +1,7 @@
 local plugin = {}
 
 function plugin.install(plug)
-    plug "neovim/nvim-lspconfig"
+    plug 'neovim/nvim-lspconfig'
 end
 
 local function typescript_setup()
