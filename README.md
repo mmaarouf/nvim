@@ -41,7 +41,7 @@ curl https://raw.githubusercontent.com/mmaarouf/nvim/refs/heads/main/install.sh 
 
 ### Development environment
 
-All project dependencies and tooling used for development are installed in a [Dockerfile](/dev-env/Dockerfile), and all code executions should happen in that environmnent. See [`./bin/lint`](/bin/lint) as an example. Any non dev related scripts (such as installation scripts) should not be executable by themselves.
+All project dependencies and tooling used for development are installed in a [Dockerfile](/dev-env/Dockerfile). All code executions should happen in that environmnent. See [`./bin/lint`](/bin/lint) as an example. Any non dev related scripts (such as installation scripts) should not be executable by themselves.
 
 ## nvim-config
 
