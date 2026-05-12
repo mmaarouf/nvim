@@ -2,7 +2,7 @@ local color_scheme = {}
 
 function color_scheme.init()
     local white=231
-    local dark_grey=233
+    local dark_grey=234
     local semi_dark_grey=239
     local light_grey=237
     local yellow=227
@@ -47,7 +47,7 @@ function color_scheme.init()
     vim.api.nvim_set_hl(0, 'PmenuThumb', { ctermfg=white,  ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'Question', { ctermfg=white,  ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'QuickFixLine', { ctermfg=white,  ctermbg=dark_grey })
-    vim.api.nvim_set_hl(0, 'Search', { ctermfg=white,  ctermbg=dark_grey })
+    vim.api.nvim_set_hl(0, 'Search', { ctermfg=white,  ctermbg=purple })
     vim.api.nvim_set_hl(0, 'SpecialKey', { ctermfg=51 ,  ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'SpellBad', { ctermfg=white,  ctermbg=dark_grey })
     vim.api.nvim_set_hl(0, 'SpellCap', { ctermfg=white,  ctermbg=dark_grey })
